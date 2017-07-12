@@ -10,7 +10,11 @@ class MessagesChannel < ApplicationCable::Channel
   # note it's 'receive', not 'received'
   def receive(data)
     Rails.logger.info("MessagesChannel got: #{data.inspect}")
-    ActionCable.server.broadcast("chat", data)
+
+    @message = Message.create(data['message'])
+    if @message.persisted?
+      ActionCable.server.broadcast("chat", message: render_message(@message))
+    end
   end
 
 end
