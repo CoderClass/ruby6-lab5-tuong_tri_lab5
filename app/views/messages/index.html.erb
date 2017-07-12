@@ -1,4 +1,13 @@
 <h1>Messages view</h1>
+
+<div>
+	<%= form_for Message.new do |f| %>
+		<%= f.label :body %>
+		<%= f.text_field :body %>
+		<%= f.submit %>
+	<% end %>
+</div>
+
 <div class="messages">
   <%= render @messages %>
 </div>
